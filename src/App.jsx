@@ -1,0 +1,31 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
+import AdminLayout from './components/AdminLayout';
+import MarketplaceLayout from './components/MarketplaceLayout';
+import ProtectedRoute from './components/ProtectedRoute';
+import SellerLayout from './components/SellerLayout';
+import AdminPage from './pages/AdminPage';
+import AdminModerationDetailPage from './pages/AdminModerationDetailPage';
+import AdminModerationPage from './pages/AdminModerationPage';
+import AdminSellersPage from './pages/AdminSellersPage';
+import AdminConsumersPage from './pages/AdminConsumersPage';
+import BrowsePage from './pages/BrowsePage';
+import CheckoutPage from './pages/CheckoutPage';
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
+import DeploymentPage from './pages/DeploymentPage';
+import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage.jsx';
+import ResetPasswordPage from './pages/ResetPasswordPage';
+import ProductPage from './pages/ProductPage';
+import ShipmentsPage from './pages/ShipmentsPage.jsx';
+import SellerOrderDetailPage from './pages/SellerOrderDetailPage';
+import SellerOrdersPage from './pages/SellerOrdersPage';
+import SellerProductsPage from './pages/SellerProductsPage.jsx';
+import SellerPage from './pages/SellerPage';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
+function App() {
+    return (_jsxs(Routes, { children: [_jsx(Route, { path: "sign-in", element: _jsx(SignInPage, {}) }), _jsx(Route, { path: "sign-up", element: _jsx(SignUpPage, {}) }), _jsx(Route, { path: "deployment", element: _jsx(DeploymentPage, {}) }), _jsx(Route, { path: "reset-password", element: _jsx(ResetPasswordPage, {}) }), _jsxs(Route, { element: _jsx(MarketplaceLayout, {}), children: [_jsx(Route, { index: true, element: _jsx(HomePage, {}) }), _jsx(Route, { path: "browse", element: _jsx(BrowsePage, {}) }), _jsx(Route, { path: "browse/:listingId", element: _jsx(ProductPage, {}) }), _jsxs(Route, { element: _jsx(ProtectedRoute, { roles: ['buyer', 'seller', 'admin'] }), children: [_jsx(Route, { path: "profile", element: _jsx(ProfilePage, {}) }), _jsx(Route, { path: "checkout", element: _jsx(CheckoutPage, {}) }), _jsx(Route, { path: "checkout/:listingId", element: _jsx(CheckoutPage, {}) }), _jsx(Route, { path: "checkout/success", element: _jsx(CheckoutSuccessPage, {}) }), _jsx(Route, { path: "shipments", element: _jsx(ShipmentsPage, {}) })] }), _jsx(Route, { element: _jsx(ProtectedRoute, { roles: ['seller'] }), children: _jsxs(Route, { path: "seller", element: _jsx(SellerLayout, {}), children: [_jsx(Route, { index: true, element: _jsx(SellerPage, {}) }), _jsx(Route, { path: "products", element: _jsx(SellerProductsPage, {}) }), _jsx(Route, { path: "orders", element: _jsx(SellerOrdersPage, {}) }), _jsx(Route, { path: "orders/:orderId", element: _jsx(SellerOrderDetailPage, {}) })] }) }), _jsx(Route, { element: _jsx(ProtectedRoute, { roles: ['admin'] }), children: _jsxs(Route, { path: "admin", element: _jsx(AdminLayout, {}), children: [_jsx(Route, { index: true, element: _jsx(AdminPage, {}) }), _jsx(Route, { path: "consumers", element: _jsx(AdminConsumersPage, {}) }), _jsx(Route, { path: "moderation", element: _jsx(AdminModerationPage, {}) }), _jsx(Route, { path: "moderation/:listingId", element: _jsx(AdminModerationDetailPage, {}) }), _jsx(Route, { path: "sellers", element: _jsx(AdminSellersPage, {}) })] }) }), _jsx(Route, { path: "*", element: _jsx(Navigate, { to: "/", replace: true }) })] })] }));
+}
+export default App;
