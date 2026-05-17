@@ -146,9 +146,18 @@ const remoteMarketplaceApi = {
     resetPassword: async (token, newPassword) => request('POST', '/api/auth/reset-password', { token, newPassword }),
 };
 
+const normalizeDemoResult = (operation, result) => {
+    if (operation === 'signIn' || operation === 'signUp') {
+        return result.store;
+    }
+
+    return result;
+};
+
 const runWithFallback = async (operation, ...args) => {
     if (runtimeMode === 'demo') {
-        return demoMarketplaceApi[operation](...args);
+        const result = await demoMarketplaceApi[operation](...args);
+        return normalizeDemoResult(operation, result);
     }
 
     try {
@@ -157,7 +166,8 @@ const runWithFallback = async (operation, ...args) => {
     catch (error) {
         if (error instanceof Error && error.code === NETWORK_ERROR_CODE) {
             runtimeMode = 'demo';
-            return demoMarketplaceApi[operation](...args);
+            const result = await demoMarketplaceApi[operation](...args);
+            return normalizeDemoResult(operation, result);
         }
 
         throw error;

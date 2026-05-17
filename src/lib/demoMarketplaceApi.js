@@ -551,7 +551,9 @@ const demoMarketplaceApi = {
         const identifier = String(payload?.identifier ?? '').trim().toLowerCase();
         const password = String(payload?.password ?? '');
         const user = state.users.find((candidate) => (
-            candidate.username.toLowerCase() === identifier || candidate.email.toLowerCase() === identifier
+            candidate.username.toLowerCase() === identifier
+            || candidate.email.toLowerCase() === identifier
+            || String(candidate.phone ?? '').trim() === identifier
         ));
 
         if (!user || user.password !== password) {
