@@ -1,5 +1,10 @@
 const DEMO_STATE_KEY = 'signal-market-demo-state';
 const DEMO_TOKEN_KEY = 'signal-market-demo-token';
+``
+const createDemoImage = (title, accent, accentSoft) => {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0d1117"/><stop offset="100%" stop-color="#111827"/></linearGradient><linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${accent}" stop-opacity="0.9"/><stop offset="100%" stop-color="${accentSoft}" stop-opacity="0.1"/></linearGradient></defs><rect width="1200" height="800" fill="url(#bg)"/><circle cx="300" cy="220" r="170" fill="${accent}" fill-opacity="0.16"/><circle cx="920" cy="160" r="140" fill="${accentSoft}" fill-opacity="0.12"/><rect x="120" y="150" width="960" height="500" rx="36" fill="url(#glow)" fill-opacity="0.26" stroke="${accent}" stroke-opacity="0.28"/><path d="M240 520l165-165a28 28 0 0 1 40 0l115 115 74-74a28 28 0 0 1 40 0L960 520v64H240z" fill="${accent}" fill-opacity="0.26"/><text x="50%" y="50%" text-anchor="middle" fill="#f7f9f9" font-family="Arial, sans-serif" font-size="54" font-weight="700">${title}</text><text x="50%" y="58%" text-anchor="middle" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="24">Demo image</text></svg>`;
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+};
 
 const DEMO_USERS = [
     {
@@ -64,10 +69,10 @@ const DEMO_LISTINGS = [
     {
         id: 'studio-ceramics',
         title: 'Hand-thrown studio ceramics set',
-        imageUrl: 'https://images.unsplash.com/photo-1510707577719-ae7c14805e8f?auto=format&fit=crop&w=1200&q=80',
+        imageUrl: createDemoImage('Ceramics', '#1d9bf0', '#8ecdf8'),
         imageUrls: [
-            'https://images.unsplash.com/photo-1510707577719-ae7c14805e8f?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1200&q=80',
+            createDemoImage('Ceramics', '#1d9bf0', '#8ecdf8'),
+            createDemoImage('Ceramics Set', '#0f766e', '#99f6e4'),
         ],
         seller: 'ahmed-bh91-seller',
         price: 28.5,
@@ -86,10 +91,10 @@ const DEMO_LISTINGS = [
     {
         id: 'restored-desk-lamp',
         title: 'Restored brass desk lamp',
-        imageUrl: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80',
+        imageUrl: createDemoImage('Desk Lamp', '#f59e0b', '#fde68a'),
         imageUrls: [
-            'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80',
+            createDemoImage('Desk Lamp', '#f59e0b', '#fde68a'),
+            createDemoImage('Warm Light', '#b45309', '#fdba74'),
         ],
         seller: 'ahmed-bh91-seller',
         price: 54.0,
@@ -108,10 +113,10 @@ const DEMO_LISTINGS = [
     {
         id: 'natural-linen-set',
         title: 'Natural linen dining set',
-        imageUrl: 'https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=1200&q=80',
+        imageUrl: createDemoImage('Linen Set', '#10b981', '#6ee7b7'),
         imageUrls: [
-            'https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80',
+            createDemoImage('Linen Set', '#10b981', '#6ee7b7'),
+            createDemoImage('Table Texture', '#047857', '#a7f3d0'),
         ],
         seller: 'ahmed-bh91-seller',
         price: 17.25,
@@ -130,10 +135,10 @@ const DEMO_LISTINGS = [
     {
         id: 'walnut-serving-board',
         title: 'Walnut serving board',
-        imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80',
+        imageUrl: createDemoImage('Serving Board', '#a16207', '#fbbf24'),
         imageUrls: [
-            'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=80',
+            createDemoImage('Serving Board', '#a16207', '#fbbf24'),
+            createDemoImage('Walnut Grain', '#78350f', '#fde68a'),
         ],
         seller: 'ahmed-bh91-seller',
         price: 21.9,
@@ -152,10 +157,10 @@ const DEMO_LISTINGS = [
     {
         id: 'courier-tote',
         title: 'Courier canvas tote',
-        imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
+        imageUrl: createDemoImage('Canvas Tote', '#7c3aed', '#c4b5fd'),
         imageUrls: [
-            'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1523381294911-8d3cead13475?auto=format&fit=crop&w=1200&q=80',
+            createDemoImage('Canvas Tote', '#7c3aed', '#c4b5fd'),
+            createDemoImage('Everyday Carry', '#4c1d95', '#ddd6fe'),
         ],
         seller: 'ahmed-bh91-seller',
         price: 32.0,
@@ -176,10 +181,10 @@ const DEMO_LISTINGS = [
     {
         id: 'botanical-print-set',
         title: 'Botanical print triptych',
-        imageUrl: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=80',
+        imageUrl: createDemoImage('Botanical Art', '#0ea5a4', '#5eead4'),
         imageUrls: [
-            'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=80',
-            'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1200&q=80',
+            createDemoImage('Botanical Art', '#0ea5a4', '#5eead4'),
+            createDemoImage('Print Triptych', '#115e59', '#99f6e4'),
         ],
         seller: 'ahmed-bh91-seller',
         price: 44.75,
@@ -194,6 +199,96 @@ const DEMO_LISTINGS = [
         moderationNotes: [],
         reviews: [],
         createdAt: '2026-04-07T10:05:00.000Z',
+    },
+    {
+        id: 'handwoven-planters',
+        title: 'Handwoven planter trio',
+        imageUrl: createDemoImage('Planter Trio', '#22c55e', '#86efac'),
+        imageUrls: [
+            createDemoImage('Planter Trio', '#22c55e', '#86efac'),
+            createDemoImage('Woven Fiber', '#15803d', '#bbf7d0'),
+        ],
+        seller: 'ahmed-bh91-seller',
+        price: 36.5,
+        meta: 'Three handwoven baskets sized for herbs, desk plants, or entryway styling.',
+        description: 'A lightweight planter set with natural texture and a warm handmade finish.',
+        category: 'Home',
+        trust: 'Verified seller',
+        shipping: 'Tracked delivery in 3-5 days',
+        reviewScore: 4.7,
+        inventory: 8,
+        status: 'live',
+        moderationNotes: [],
+        reviews: [],
+        createdAt: '2026-04-08T09:00:00.000Z',
+    },
+    {
+        id: 'artisan-mug-pair',
+        title: 'Artisan mug pair',
+        imageUrl: createDemoImage('Mug Pair', '#ef4444', '#fca5a5'),
+        imageUrls: [
+            createDemoImage('Mug Pair', '#ef4444', '#fca5a5'),
+            createDemoImage('Glazed Stoneware', '#991b1b', '#fecaca'),
+        ],
+        seller: 'ahmed-bh91-seller',
+        price: 19.75,
+        meta: 'Two matching mugs with a soft matte glaze and comfortable rounded handles.',
+        description: 'Gift-ready stoneware designed for coffee, tea, and everyday shelf appeal.',
+        category: 'Kitchen',
+        trust: 'Verified materials',
+        shipping: 'Tracked delivery in 2-4 days',
+        reviewScore: 4.9,
+        inventory: 13,
+        status: 'live',
+        moderationNotes: [],
+        reviews: [],
+        createdAt: '2026-04-09T13:25:00.000Z',
+    },
+    {
+        id: 'brushed-mirror-tray',
+        title: 'Brushed mirror tray',
+        imageUrl: createDemoImage('Mirror Tray', '#64748b', '#cbd5e1'),
+        imageUrls: [
+            createDemoImage('Mirror Tray', '#64748b', '#cbd5e1'),
+            createDemoImage('Vanity Accent', '#334155', '#e2e8f0'),
+        ],
+        seller: 'ahmed-bh91-seller',
+        price: 24.0,
+        meta: 'Reflective tray for perfumes, candles, keys, or tabletop styling.',
+        description: 'A polished accent piece that works as decor, storage, or a display base.',
+        category: 'Decor',
+        trust: 'Verified seller',
+        shipping: 'Tracked insured delivery',
+        reviewScore: 4.6,
+        inventory: 10,
+        status: 'review',
+        moderationNotes: [
+            { author: 'ahmed-bh91-admin', note: 'Approve after the final angle photo is added.' },
+        ],
+        reviews: [],
+        createdAt: '2026-04-10T15:40:00.000Z',
+    },
+    {
+        id: 'saffron-gift-box',
+        title: 'Saffron gift box',
+        imageUrl: createDemoImage('Saffron Box', '#d97706', '#fdba74'),
+        imageUrls: [
+            createDemoImage('Saffron Box', '#d97706', '#fdba74'),
+            createDemoImage('Spice Selection', '#92400e', '#fde68a'),
+        ],
+        seller: 'ahmed-bh91-seller',
+        price: 41.25,
+        meta: 'A curated spice set with premium saffron threads and presentation packaging.',
+        description: 'A compact gourmet gift box made for holidays, hosting, and premium resale.',
+        category: 'Food',
+        trust: 'Verified materials',
+        shipping: 'Tracked delivery in 4 days',
+        reviewScore: 4.8,
+        inventory: 5,
+        status: 'live',
+        moderationNotes: [],
+        reviews: [],
+        createdAt: '2026-04-11T10:50:00.000Z',
     },
 ];
 
