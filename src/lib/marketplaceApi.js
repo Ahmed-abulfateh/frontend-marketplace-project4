@@ -1,7 +1,10 @@
 import axios from 'axios';
+import demoMarketplaceApi from './demoMarketplaceApi';
 
 const TOKEN_KEY = 'signal-market-token';
 const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
+const NETWORK_ERROR_CODE = 'MARKETPLACE_NETWORK_UNREACHABLE';
+let runtimeMode = 'remote';
 
 const readToken = () => window.localStorage.getItem(TOKEN_KEY);
 
@@ -12,6 +15,12 @@ const writeToken = (token) => {
     }
 
     window.localStorage.removeItem(TOKEN_KEY);
+};
+
+const createNetworkError = () => {
+    const error = new Error('Could not reach the marketplace server. Switched to local demo mode.');
+    error.code = NETWORK_ERROR_CODE;
+    return error;
 };
 
 const apiClient = axios.create({
@@ -52,16 +61,19 @@ const request = async (method, path, data) => {
                 throw new Error(`Request failed: ${error.response.status}`);
             }
 
-            throw new Error('Could not reach the marketplace server. Check that the backend is running and try again.');
+            throw createNetworkError();
         }
 
         throw error;
     }
 };
 
-const getMarketplaceRuntimeInfo = () => ({ mode: 'remote', apiBase: API_BASE });
+const getMarketplaceRuntimeInfo = () => ({
+    mode: runtimeMode,
+    apiBase: runtimeMode === 'demo' ? '' : API_BASE,
+});
 
-const marketplaceApi = {
+const remoteMarketplaceApi = {
     getStore: async () => {
         const response = await request('GET', '/api/bootstrap');
         return response.store;
@@ -132,6 +144,46 @@ const marketplaceApi = {
     checkout: async (payload) => request('POST', '/api/checkout', payload),
     requestPasswordReset: async () => request('POST', '/api/auth/request-password-reset'),
     resetPassword: async (token, newPassword) => request('POST', '/api/auth/reset-password', { token, newPassword }),
+};
+
+const runWithFallback = async (operation, ...args) => {
+    if (runtimeMode === 'demo') {
+        return demoMarketplaceApi[operation](...args);
+    }
+
+    try {
+        return await remoteMarketplaceApi[operation](...args);
+    }
+    catch (error) {
+        if (error instanceof Error && error.code === NETWORK_ERROR_CODE) {
+            runtimeMode = 'demo';
+            return demoMarketplaceApi[operation](...args);
+        }
+
+        throw error;
+    }
+};
+
+const marketplaceApi = {
+    getStore: (...args) => runWithFallback('getStore', ...args),
+    signIn: (...args) => runWithFallback('signIn', ...args),
+    signUp: (...args) => runWithFallback('signUp', ...args),
+    signOut: (...args) => runWithFallback('signOut', ...args),
+    updateProfile: (...args) => runWithFallback('updateProfile', ...args),
+    toggleFavorite: (...args) => runWithFallback('toggleFavorite', ...args),
+    toggleCart: (...args) => runWithFallback('toggleCart', ...args),
+    createListing: (...args) => runWithFallback('createListing', ...args),
+    updateListing: (...args) => runWithFallback('updateListing', ...args),
+    deleteListing: (...args) => runWithFallback('deleteListing', ...args),
+    updateListingStatus: (...args) => runWithFallback('updateListingStatus', ...args),
+    addModerationNote: (...args) => runWithFallback('addModerationNote', ...args),
+    advanceOrderStatus: (...args) => runWithFallback('advanceOrderStatus', ...args),
+    sendOrderMessage: (...args) => runWithFallback('sendOrderMessage', ...args),
+    addListingReview: (...args) => runWithFallback('addListingReview', ...args),
+    updateSellerStatus: (...args) => runWithFallback('updateSellerStatus', ...args),
+    checkout: (...args) => runWithFallback('checkout', ...args),
+    requestPasswordReset: (...args) => runWithFallback('requestPasswordReset', ...args),
+    resetPassword: (...args) => runWithFallback('resetPassword', ...args),
 };
 
 export { getMarketplaceRuntimeInfo };
